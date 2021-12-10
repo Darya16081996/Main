@@ -16,7 +16,6 @@ public class AuthPage {
     public void insertLogin(String login) {
         driver.findElement(USERNAME_lOCATOR).sendKeys(login);
     }
-
     public void insertPassword(String password) {
         driver.findElement(PASSWORD_lOCATOR).sendKeys(password);
     }
@@ -26,6 +25,7 @@ public class AuthPage {
     public String getErrorMessage() {
         return driver.findElement(ERROR_MESSAGE).getText();
     }
+
     public void fullAuth(String login, String password) {
         insertLogin(login);
         insertPassword(password);

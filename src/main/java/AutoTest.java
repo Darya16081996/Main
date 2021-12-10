@@ -14,13 +14,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AutoTest {
     WebDriver driver;
     AuthPage authPage;
+    MainPage mainPage;
 
     @BeforeEach
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\Downloads\\chromedriver_win32\\chromedriver.exe");
-        driver = new ChromeDriver();
+        driver = Driver.getDriver();
         authPage = new AuthPage(driver);
-        driver.get("https://opensource-demo.orangehrmlive.com/");
+        driver.get("http://opensource-demo.orangehrnlive.com/");
     }
 
     @org.junit.jupiter.api.Test
@@ -32,16 +32,17 @@ public class AutoTest {
 //        WebElement button = driver.findElement(By.id("btnLogin"));
 //        button.click();
 
-        authPage.insertLogin("Admin");
-        authPage.insertPassword("admin123");
-        authPage.clickSignInButton();
+          authPage.fullAuth("Admin","admin123");
+//        authPage.insertLogin("Admin");
+//        authPage.insertPassword("admin123");
+//        authPage.clickSignInButton();
+//        WebElement userName = driver.findElement(By.id("welcome"));
 
-        WebElement userName = driver.findElement(By.id("welcome"));
-
-        Assertions.assertEquals("Welcome Prachika", userName.getText());
+        String userName = mainPage.getUserName();
+        Assertions.assertEquals("Welcome Prachika", userName);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void wrongPassword() {
 //        WebElement login = driver.findElement(By.id("txtUsername"));
 //        login.sendKeys("Admin");
@@ -52,8 +53,7 @@ public class AutoTest {
         authPage.insertLogin("Admin");
         authPage.insertPassword("admin123456");
         authPage.clickSignInButton();
-        String warningText = driver.findElement(By.id("Invalid credentials")).getText();
-
+        String warningText = authPage.getErrorMessage();
         Assertions.assertEquals("Invalid credentials", warningText);
     }
 
@@ -68,6 +68,6 @@ public class AutoTest {
 
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        Driver.tearDown();
     }
 }
