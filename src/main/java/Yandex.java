@@ -1,9 +1,13 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Yandex {
     WebDriver driver;
@@ -38,10 +42,22 @@ public class Yandex {
         login.sendKeys("daryagalteeva");
         WebElement button1 = driver.findElement(By.xpath("//button[@class='Button2 Button2_size_l Button2_view_action Button2_width_max Button2_type_submit']"));
         button1.click();
-        WebElement password = driver.findElement(By.xpath("//input[@class='Textinput-Control']"));
+        List<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
+        if (!tabs2.isEmpty()) {
+            driver.switchTo().window(tabs2.get(1));
+        }
+//        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='passp-field-passwd']")));
+        WebElement password = driver.findElement(By.xpath("//input[@name='passwd']"));
+//        @id='passp-field-passwd'  passp:sign-in
+//        By password = By.xpath("//input[@name='passwd']");
         password.sendKeys("C773kjVVGb88938");
-        WebElement button2 = driver.findElement(By.xpath("//button[@class='Button2 Button2_size_l Button2_view_action Button2_width_max Button2_type_submit']"));
+//        WebElement button2 = driver.findElement(By.xpath("//button[@class='Button2 Button2_size_l Button2_view_action Button2_width_max Button2_type_submit']"));
+//        button2.click();
+        WebElement button2 = driver.findElement(By.xpath("//button[@id='passp:sign-in']"));
         button2.click();
+//        WebElement post = driver.findElement(By.xpath("//div[@class='desk-notif-card__mail-title']"));
+//        WebElement post = driver.findElement(By.xpath("//div[@text='Почта']"));
+//        post.click();
 //        authPage.insertLogin("Admin");
 //        authPage.insertPassword("admin123");
 //        authPage.clickSignInButton();
@@ -79,4 +95,6 @@ public class Yandex {
 //        Assertions.assertEquals("Password can not be empty", warningText);
 //    }
     }
+
+
 }
