@@ -12,8 +12,7 @@ public class Driver {
 
     public static WebDriver getDriver() {
         if (driver == null){
-//            System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\Downloads\\chromedriver_win32\\chromedriver.exe");
-//            driver = new ChromeDriver();
+
             System.setProperty("driver", "chrome");
             String drvr = System.getProperty("driver");
             switch (drvr){
@@ -21,11 +20,11 @@ public class Driver {
                     initFF();
                     break;
                 case "chrome":
-//                    initChrome();
-//                    break;
+                    initChrome();
+                    break;
                 default:
                     initChrome();
-        }
+            }
         }
         return driver;
     }
@@ -37,9 +36,8 @@ public class Driver {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\Downloads\\chromedriver_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-normalized");
-//        options.addArguments("--headless");
         driver = new ChromeDriver(options);
-//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     public static void tearDown() {
